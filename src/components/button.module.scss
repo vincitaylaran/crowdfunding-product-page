@@ -1,0 +1,16 @@
+@import "../styles/vars";
+
+.btn {
+  min-height: 56px;
+  border-radius: 33.5px;
+  background: $moderate-cyan;
+  color: white;
+  width: 214px;
+  font-weight: $bold;
+  font-size: 1rem;
+  border-style: none;
+  cursor: pointer;
+  &:hover {
+    background: $dark-cyan;
+  }
+}
