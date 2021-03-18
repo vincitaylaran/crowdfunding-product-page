@@ -1,0 +1,14 @@
+@import "../styles/mixins";
+@import "../styles/vars";
+
+.container {
+  display: grid;
+  justify-content: center;
+  gap: 24px;
+  padding-left: 24px;
+  padding-right: 24px;
+
+  position: absolute;
+  top: 34%;
+  width: 100%;
+}
