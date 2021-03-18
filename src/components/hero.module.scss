@@ -5,4 +5,8 @@
   top: 0;
   left: 0;
   z-index: -2;
+
+  // It is important that the width for the hero class is 100% so that the images nested inside it
+  // will fill the screen from edge to edge.
+  width: 100%;
 }

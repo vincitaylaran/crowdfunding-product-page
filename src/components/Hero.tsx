@@ -9,15 +9,13 @@ import { useBreakpoint } from "gatsby-plugin-breakpoints"
 const Hero = () => {
   const breakpoints = useBreakpoint()
 
-  console.log(breakpoints.xs)
-
   return (
     <div className={styles.hero}>
       {breakpoints.xs ? (
         <img
           src={HeroMobile}
           alt="mastercraft bamboo monitor riser"
-          width="100%"
+          width="100%" // Setting it to 100% will fill the entire container. This is important.
           height={300}
         />
       ) : (
