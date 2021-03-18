@@ -1,12 +1,15 @@
 import * as React from "react"
 import * as styles from "./index.module.scss"
 import "../styles/globals.scss"
+import Nav from "../components/Nav"
+import Hero from "../components/Hero"
 
 const IndexPage = () => {
   return (
-    <main className={styles.content}>
+    <main>
       <title>crowdfund</title>
-      <h1>Hello World</h1>
+      <Nav />
+      <Hero />
     </main>
   )
 }
