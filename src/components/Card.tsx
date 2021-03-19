@@ -5,11 +5,16 @@ interface Props {
   children: ReactNode
   style?: React.CSSProperties
   id?: string
+  disabled?: boolean
 }
 
-const Card = ({ children, style, id }: Props) => {
+const Card = ({ children, style, id, disabled = false }: Props) => {
   return (
-    <div id={id} style={style} className={styles.card}>
+    <div
+      id={id}
+      style={style}
+      className={`${styles.card} ${disabled ? styles.disabled : ""}`}
+    >
       {children}
     </div>
   )

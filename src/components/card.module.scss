@@ -71,30 +71,30 @@
     justify-content: space-between;
     width: 100%;
 
-    .bookmark {
-      // Changes the fill color of the bookmark icon when clicked
-      @mixin bookmarked {
-        .bookmarked {
-          svg {
-            g {
-              circle {
-                fill: #707070;
-                margin-right: 9px;
-              }
-              path {
-                fill: white;
-              }
+    // Changes the fill color of the bookmark icon when clicked
+    @mixin bookmarked {
+      .bookmarked {
+        svg {
+          g {
+            circle {
+              fill: #707070;
+              margin-right: 9px;
+            }
+            path {
+              fill: white;
             }
           }
+        }
 
-          .iconContainer {
-            margin-right: 12px;
-          }
+        .iconContainer {
+          margin-right: 12px;
         }
       }
+    }
 
-      @include bookmarked;
+    @include bookmarked;
 
+    .bookmark {
       .desktopVersion {
         display: flex;
         justify-content: space-between;
@@ -116,12 +116,8 @@
           }
         }
 
-        @include bookmarked;
-
         // Styles for the text. The text is "Bookmark" but should turn to "Bookmarked" when clicked.
         span {
-          // position: relative;
-          // right: 20px;
           color: $dark-grey;
           font-weight: $bold;
         }
@@ -190,4 +186,81 @@
       }
     }
   }
+}
+
+#productAbout {
+  @include container;
+  justify-content: flex-start;
+
+  .rewards {
+    display: grid;
+    gap: 24px;
+
+    // Overwrites some of the the card class styles declared on line 4.
+    .card {
+      align-items: flex-start;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      border-radius: 8px;
+      width: 100%;
+      padding-top: 24px;
+      padding-bottom: 24px;
+
+      .headings {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      @include mobile {
+        .headings {
+          flex-direction: column;
+          align-items: flex-start;
+
+          h5 {
+            margin-bottom: 5px;
+          }
+
+          .subtext {
+            color: $moderate-cyan;
+          }
+        }
+      }
+
+      .rewardDescription {
+        margin: 24px 0;
+      }
+
+      .footer {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+
+        @include mobile {
+          flex-direction: column;
+        }
+
+        h3 {
+          font-size: 2rem;
+          margin-bottom: 24px;
+          span {
+            font-weight: $regular;
+            color: $dark-grey;
+            font-size: 0.9rem;
+            position: relative;
+            bottom: 7px;
+          }
+        }
+
+        button {
+          width: 157px;
+          font-size: 0.875rem;
+        }
+      }
+    }
+  }
+}
+
+.disabled {
+  opacity: 0.5;
 }

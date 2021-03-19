@@ -14,3 +14,12 @@
     background: $dark-cyan;
   }
 }
+
+.disabled {
+  opacity: 0.5;
+  background: #2f2f2f;
+  cursor: default;
+  &:hover {
+    background: #2f2f2f;
+  }
+}
