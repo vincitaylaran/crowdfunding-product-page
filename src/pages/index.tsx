@@ -30,6 +30,29 @@ const Bookmark = () => {
   )
 }
 
+const ProgressBar = ({ ...props }) => {
+  return (
+    <div
+      style={{
+        width: "100%",
+        borderRadius: 33.5,
+        background: "rgb(245, 245, 245)",
+        height: 12,
+      }}
+    >
+      <div
+        style={{
+          borderRadius: "inherit",
+          background: "#3CB3AB",
+          width: `${props.progress}%`,
+          color: "#3CB3AB",
+          height: "100%",
+        }}
+      ></div>
+    </div>
+  )
+}
+
 const IndexPage = () => {
   return (
     <main>
@@ -55,7 +78,18 @@ const IndexPage = () => {
           </div>
         </Card>
 
-        <Card>hello</Card>
+        <Card id={cardStyles.productProgress}>
+          <h2>$89,914</h2>
+          <p>of $100,000 backed</p>
+          <hr />
+          <h2>$5,007</h2>
+          <p>total backers</p>
+          <hr />
+          <h2>56</h2>
+          <p>days left</p>
+
+          <ProgressBar progress={78.2} />
+        </Card>
 
         <Card>hello</Card>
       </Container>

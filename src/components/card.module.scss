@@ -77,7 +77,7 @@
         justify-content: space-between;
         align-items: center;
 
-        background: rgb(245, 245, 245);
+        background: $light-grey;
         border-radius: 33.5px;
         width: 174px;
         cursor: pointer;
@@ -100,6 +100,27 @@
           font-weight: $bold;
         }
       }
+    }
+  }
+}
+
+#productProgress {
+  @include mobile {
+    h2 {
+      margin-bottom: 9px;
+      font-size: 2rem;
+    }
+
+    p {
+      margin-bottom: 24px;
+    }
+
+    hr {
+      width: 80px;
+      height: 1px;
+      opacity: 0.15;
+      mix-blend-mode: normal;
+      margin-bottom: 24px;
     }
   }
 }
