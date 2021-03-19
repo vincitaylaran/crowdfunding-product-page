@@ -5,3 +5,11 @@
     @content;
   }
 }
+
+@mixin container {
+  display: grid;
+  justify-content: center;
+  gap: 24px;
+  padding-left: 24px;
+  padding-right: 24px;
+}

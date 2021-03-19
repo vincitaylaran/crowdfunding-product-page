@@ -13,6 +13,13 @@ import Container from "../components/Container"
 import Card from "../components/Card"
 import Button from "../components/Button"
 
+interface Product {
+  name: string
+  minPledge: number
+  description: string
+  daysLeft: number
+}
+
 const Bookmark = () => {
   const breakpoint = useBreakpoint()
   const [isBookmarked, setIsBookmarked] = useState<boolean>(false)
@@ -67,6 +74,29 @@ const ProgressBar = ({ ...props }) => {
 const IndexPage = () => {
   const donationGoal = 100000
   const [currentDonations, setCurrentDonations] = useState<number>(89914)
+  const [products, setProducts] = useState<Product[]>([
+    {
+      name: "Bamboo Stand",
+      minPledge: 25,
+      description:
+        "You get an ergonomic stand made of natural bamboo. You've helped us launch our promotional campaign, and you’ll be added to a special Backer member list.",
+      daysLeft: 101,
+    },
+    {
+      name: "Black Edition Stand",
+      minPledge: 75,
+      description:
+        "You get a Black Special Edition computer stand and a personal thank you. You’ll be added to our Backer member list. Shipping is included.",
+      daysLeft: 64,
+    },
+    {
+      name: "Mahogany Special Edition",
+      minPledge: 200,
+      description:
+        "You get two Special Edition Mahogany stands, a Backer T-Shirt, and a personal thank you. You’ll be added to our Backer member list. Shipping is included.",
+      daysLeft: 0,
+    },
+  ])
 
   return (
     <main>
@@ -115,7 +145,45 @@ const IndexPage = () => {
           <ProgressBar progress={(currentDonations / donationGoal) * 100} />
         </Card>
 
-        <Card>hello</Card>
+        <Card id={cardStyles.productAbout}>
+          <h4>About this project</h4>
+          <p>
+            The Mastercraft Bamboo Monitor Riser is a sturdy and stylish
+            platform that elevates your screen to a more comfortable viewing
+            height. Placing your monitor at eye level has the potential to
+            improve your posture and make you more comfortable while at work,
+            helping you stay focused on the task at hand.
+          </p>
+          <p>
+            Featuring artisan craftsmanship, the simplicity of design creates
+            extra desk space below your computer to allow notepads, pens, and
+            USB sticks to be stored under the stand.
+          </p>
+          <div className={cardStyles.rewards}>
+            {products.map((p, i) => (
+              <Card key={`${p.name}-${i}`} disabled={p.daysLeft === 0}>
+                <div className={cardStyles.headings}>
+                  <h5>{p.name}</h5>
+                  <p className={cardStyles.subtext}>
+                    Pledge ${p.minPledge} or more
+                  </p>
+                </div>
+                <p className={cardStyles.rewardDescription}>{p.description}</p>
+
+                <div className={cardStyles.footer}>
+                  <h3>
+                    {p.daysLeft} <span>left</span>
+                  </h3>
+
+                  <Button
+                    disabled={p.daysLeft === 0}
+                    title={p.daysLeft === 0 ? "Out of Stock" : "Select Reward"}
+                  />
+                </div>
+              </Card>
+            ))}
+          </div>
+        </Card>
       </Container>
     </main>
   )

@@ -2,11 +2,7 @@
 @import "../styles/vars";
 
 .container {
-  display: grid;
-  justify-content: center;
-  gap: 24px;
-  padding-left: 24px;
-  padding-right: 24px;
+  @include container;
 
   position: absolute;
   top: 34%;
