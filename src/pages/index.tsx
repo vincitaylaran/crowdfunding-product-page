@@ -79,14 +79,24 @@ const IndexPage = () => {
         </Card>
 
         <Card id={cardStyles.productProgress}>
-          <h2>$89,914</h2>
-          <p>of $100,000 backed</p>
-          <hr />
-          <h2>$5,007</h2>
-          <p>total backers</p>
-          <hr />
-          <h2>56</h2>
-          <p>days left</p>
+          <div className={cardStyles.progress}>
+            <div className={cardStyles.cell}>
+              <h2>$89,914</h2>
+              <p>of $100,000 backed</p>
+              <hr />
+            </div>
+
+            <div className={cardStyles.cell}>
+              <h2>5,007</h2>
+              <p>total backers</p>
+              <hr />
+            </div>
+
+            <div className={cardStyles.cell}>
+              <h2>56</h2>
+              <p>days left</p>
+            </div>
+          </div>
 
           <ProgressBar progress={78.2} />
         </Card>
