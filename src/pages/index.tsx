@@ -15,15 +15,25 @@ import Button from "../components/Button"
 
 const Bookmark = () => {
   const breakpoint = useBreakpoint()
+  const [isBookmarked, setIsBookmarked] = useState<boolean>(false)
+
+  const changeIconColor = () => (isBookmarked ? cardStyles.bookmarked : "")
 
   return (
-    <div className={cardStyles.bookmark}>
+    <div
+      className={`${cardStyles.bookmark} ${changeIconColor()}`}
+      onClick={() => {
+        setIsBookmarked(!isBookmarked)
+      }}
+    >
       {breakpoint.xs ? (
         <BookmarkIcon />
       ) : (
-        <div className={cardStyles.desktopVersion}>
-          <BookmarkIcon />
-          <span>Bookmark</span>
+        <div className={`${cardStyles.desktopVersion} ${changeIconColor()}`}>
+          <div className={cardStyles.iconContainer}>
+            <BookmarkIcon />
+          </div>
+          <span>{isBookmarked ? "Bookmarked" : "Bookmark"}</span>
         </div>
       )}
     </div>
