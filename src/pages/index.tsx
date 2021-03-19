@@ -1,4 +1,4 @@
-import * as React from "react"
+import React, { useState } from "react"
 import * as cardStyles from "../components/card.module.scss"
 import "../styles/globals.scss"
 
@@ -45,6 +45,7 @@ const ProgressBar = ({ ...props }) => {
           borderRadius: "inherit",
           background: "#3CB3AB",
           width: `${props.progress}%`,
+          maxWidth: "100%",
           color: "#3CB3AB",
           height: "100%",
         }}
@@ -54,6 +55,9 @@ const ProgressBar = ({ ...props }) => {
 }
 
 const IndexPage = () => {
+  const donationGoal = 100000
+  const [currentDonations, setCurrentDonations] = useState<number>(89914)
+
   return (
     <main>
       <title>crowdfund</title>
@@ -83,13 +87,13 @@ const IndexPage = () => {
             <div className={cardStyles.cell}>
               <h2>$89,914</h2>
               <p>of $100,000 backed</p>
-              <hr />
+              <hr /> {/** This is hidden on mobile viewport */}
             </div>
 
             <div className={cardStyles.cell}>
               <h2>5,007</h2>
               <p>total backers</p>
-              <hr />
+              <hr /> {/** This is hidden on mobile viewport */}
             </div>
 
             <div className={cardStyles.cell}>
@@ -98,7 +102,7 @@ const IndexPage = () => {
             </div>
           </div>
 
-          <ProgressBar progress={78.2} />
+          <ProgressBar progress={(currentDonations / donationGoal) * 100} />
         </Card>
 
         <Card>hello</Card>
