@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import * as indexStyles from "../components/index.module.scss"
 import * as cardStyles from "../components/card.module.scss"
 import "../styles/globals.scss"
 
@@ -12,6 +13,7 @@ import Hero from "../components/Hero"
 import Container from "../components/Container"
 import Card from "../components/Card"
 import Button from "../components/Button"
+import Modal from "../components/Modal"
 
 interface Product {
   name: string
@@ -97,13 +99,19 @@ const IndexPage = () => {
       daysLeft: 0,
     },
   ])
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+
+  const onBackThisProject = () => {
+    setIsModalOpen(!isModalOpen)
+  }
 
   return (
     <main>
       <title>crowdfund</title>
+      <Modal visible={isModalOpen} onClose={onBackThisProject} />
+      {/** Should be hidden if isModalOpen state is false. Should be visible when isModalOpen is true after onBackThisProject is called. */}
       <Nav />
       <Hero />
-
       <Container>
         <Card id={cardStyles.productName}>
           <div className={cardStyles.logo}>
@@ -117,7 +125,7 @@ const IndexPage = () => {
           </p>
 
           <div className={cardStyles.buttons}>
-            <Button title="Back this project" />
+            <Button title="Back this project" onClick={onBackThisProject} />
             <Bookmark />
           </div>
         </Card>
