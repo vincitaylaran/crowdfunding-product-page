@@ -61,6 +61,7 @@
         border: 1px solid rgba(0, 0, 0, 0.15);
         border-radius: 8px;
         width: 100%;
+        cursor: pointer;
 
         @include mobile {
           padding: 36px 24px;
@@ -76,6 +77,9 @@
             height: 24px;
             border-radius: 50%;
             margin-right: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
           }
         }
 
@@ -92,6 +96,16 @@
             bottom: 1px;
             left: 4px;
           }
+        }
+      }
+
+      .selected {
+        border: 2px solid $moderate-cyan;
+        .optionSelected {
+          width: 12px;
+          height: 12px;
+          background: $moderate-cyan;
+          border-radius: inherit;
         }
       }
     }

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import * as styles from "./modal.module.scss"
 import { Product as IProduct } from "../pages/index"
 import CloseModalIcon from "../images/icon-close-modal.svg"
@@ -18,6 +18,16 @@ const CloseModal = ({ ...props }) => (
 )
 
 const Modal = ({ products, onClose, visible = false }: Props) => {
+  const [selectedProduct, setSelectedProduct] = useState<{
+    id: string
+    name: string
+    amount: number
+  }>({
+    id: "",
+    name: "",
+    amount: 0,
+  })
+
   return (
     <div
       className={`${visible ? styles.modal : styles.hidden}`}
@@ -33,39 +43,51 @@ const Modal = ({ products, onClose, visible = false }: Props) => {
           <h4>Back this project</h4>
           <CloseModal onClick={onClose} />
         </div>
+
         <p className={styles.question}>
           Want to support us in bringing Mastercraft Bamboo Monitor Riser out in
           the world?
         </p>
-        <div className={styles.rewards}>
-          <div className={styles.option}>
-            <div className={styles.productHeading}>
-              <div className={styles.circle}></div>
-              <h5>Pledge with no reward</h5>
-            </div>
 
-            <p>
-              Choose to support us without a reward if you simply believe in our
-              project. As a backer, you will be signed up to receive product
-              updates via email.
-            </p>
-          </div>
+        <div className={styles.rewards}>
           {products.map((p, i) => (
             <div
               className={`${styles.option} ${
                 p.daysLeft === 0 ? styles.disabled : ""
-              }`}
+              } ${p.id === selectedProduct.id ? styles.selected : ""}`}
               key={`modal-${p.name}-${i}`}
+              onClick={() => {
+                if ((p.daysLeft && p.daysLeft > 0) || p.noReward) {
+                  setSelectedProduct({ id: p.id, name: p.name, amount: 0 })
+                }
+              }}
+              style={{ cursor: p.daysLeft === 0 ? "default" : "pointer" }}
             >
               <div className={styles.productHeading}>
-                <div className={styles.circle}></div>
+                <div className={`${styles.circle}`}>
+                  <div
+                    className={`${
+                      p.id === selectedProduct.id ? styles.optionSelected : ""
+                    }`}
+                  ></div>
+                </div>
                 <div>
                   <h5>{p.name}</h5>
-                  <p>Pledge ${p.minPledge} or more</p>
+                  <p
+                    style={{
+                      display: p.minPledge === 0 ? "none" : "",
+                    }}
+                  >
+                    Pledge ${p.minPledge} or more
+                  </p>
                 </div>
               </div>
               <p className={styles.description}>{p.description}</p>
-              <h3>
+              <h3
+                style={{
+                  display: p.minPledge === 0 ? "none" : "",
+                }}
+              >
                 {p.daysLeft} <span>left</span>
               </h3>
             </div>

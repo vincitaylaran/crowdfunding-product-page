@@ -1,4 +1,7 @@
 import React, { useState } from "react"
+
+import { v4 as uuidv4 } from "uuid"
+
 import * as indexStyles from "../components/index.module.scss"
 import * as cardStyles from "../components/card.module.scss"
 import "../styles/globals.scss"
@@ -16,10 +19,12 @@ import Button from "../components/Button"
 import Modal from "../components/Modal"
 
 export interface Product {
+  id: string
   name: string
   minPledge: number
   description: string
-  daysLeft: number
+  daysLeft?: number
+  noReward?: boolean
 }
 
 const Bookmark = () => {
@@ -78,6 +83,7 @@ const IndexPage = () => {
   const [currentDonations, setCurrentDonations] = useState<number>(89914)
   const [products, setProducts] = useState<Product[]>([
     {
+      id: uuidv4(),
       name: "Bamboo Stand",
       minPledge: 25,
       description:
@@ -85,6 +91,7 @@ const IndexPage = () => {
       daysLeft: 101,
     },
     {
+      id: uuidv4(),
       name: "Black Edition Stand",
       minPledge: 75,
       description:
@@ -92,6 +99,7 @@ const IndexPage = () => {
       daysLeft: 64,
     },
     {
+      id: uuidv4(),
       name: "Mahogany Special Edition",
       minPledge: 200,
       description:
@@ -111,7 +119,17 @@ const IndexPage = () => {
       <Modal
         visible={isModalOpen}
         onClose={onBackThisProject}
-        products={products}
+        products={[
+          {
+            id: uuidv4(),
+            name: "Pledge with no reward",
+            minPledge: 0,
+            description:
+              "Choose to support us without a reward if you simply believe in our project. As a backer, you will be signed up to receive product updates via email.",
+            noReward: true,
+          },
+          ...products,
+        ]}
       />
       {/** Should be hidden if isModalOpen state is false. Should be visible when isModalOpen is true after onBackThisProject is called. */}
       <Nav />
