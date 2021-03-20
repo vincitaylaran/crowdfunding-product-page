@@ -15,7 +15,7 @@ import Card from "../components/Card"
 import Button from "../components/Button"
 import Modal from "../components/Modal"
 
-interface Product {
+export interface Product {
   name: string
   minPledge: number
   description: string
@@ -99,7 +99,7 @@ const IndexPage = () => {
       daysLeft: 0,
     },
   ])
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(true) // TODO: change back to false when finished.
 
   const onBackThisProject = () => {
     setIsModalOpen(!isModalOpen)
@@ -108,7 +108,11 @@ const IndexPage = () => {
   return (
     <main>
       <title>crowdfund</title>
-      <Modal visible={isModalOpen} onClose={onBackThisProject} />
+      <Modal
+        visible={isModalOpen}
+        onClose={onBackThisProject}
+        products={products}
+      />
       {/** Should be hidden if isModalOpen state is false. Should be visible when isModalOpen is true after onBackThisProject is called. */}
       <Nav />
       <Hero />

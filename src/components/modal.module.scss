@@ -23,7 +23,86 @@
 
   .window {
     background: white;
-    width: 200px;
-    height: 200px;
+    @include card;
+    justify-content: flex-start;
+    align-items: flex-start;
+    border-radius: 8px;
+    position: relative;
+    top: 80%;
+
+    .question {
+      margin-bottom: 24px;
+    }
+
+    .closeModalIcon {
+      cursor: pointer;
+      svg {
+        path {
+          &:hover {
+            opacity: 1;
+          }
+        }
+      }
+    }
+
+    .heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      margin-bottom: 24px;
+    }
+
+    .rewards {
+      display: grid;
+      gap: 24px;
+
+      .option {
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        border-radius: 8px;
+        width: 100%;
+
+        @include mobile {
+          padding: 36px 24px;
+        }
+
+        .productHeading {
+          display: flex;
+          align-items: center;
+          margin-bottom: 37px;
+          .circle {
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            margin-right: 16px;
+          }
+        }
+
+        .description {
+          margin-bottom: 24px;
+        }
+
+        h3 {
+          span {
+            font-weight: $regular;
+            color: $dark-grey;
+            font-size: 0.9rem;
+            position: relative;
+            bottom: 1px;
+            left: 4px;
+          }
+        }
+      }
+    }
   }
+}
+
+.hidden {
+  display: none;
+}
+
+.disabled {
+  opacity: 0.5;
+  mix-blend-mode: normal;
 }

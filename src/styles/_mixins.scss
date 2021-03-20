@@ -13,3 +13,36 @@
   padding-left: 24px;
   padding-right: 24px;
 }
+
+@mixin card {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  background: white;
+  border-radius: 8px;
+  width: 730px;
+  padding: 48px;
+
+  .closeModalIcon {
+    cursor: pointer;
+    svg {
+      path {
+        &:hover {
+          fill: black;
+        }
+      }
+    }
+  }
+
+  p {
+    line-height: 24px;
+    font-size: 0.875rem;
+    color: $dark-grey;
+  }
+
+  @include mobile {
+    padding: 40px 24px;
+    width: 325px;
+  }
+}
