@@ -21,12 +21,11 @@ const Modal = ({ products, onClose, visible = false }: Props) => {
   const [selectedProduct, setSelectedProduct] = useState<{
     id: string
     name: string
-    amount: number
   }>({
     id: "",
     name: "",
-    amount: 0,
   })
+  const [pledgeAmount, setPledgeAmount] = useState<string>("")
 
   return (
     <div
@@ -58,38 +57,69 @@ const Modal = ({ products, onClose, visible = false }: Props) => {
               key={`modal-${p.name}-${i}`}
               onClick={() => {
                 if ((p.daysLeft && p.daysLeft > 0) || p.noReward) {
-                  setSelectedProduct({ id: p.id, name: p.name, amount: 0 })
+                  setSelectedProduct({
+                    id: p.id,
+                    name: p.name,
+                  })
+                  setPledgeAmount(p.minPledge.toString())
                 }
               }}
               style={{ cursor: p.daysLeft === 0 ? "default" : "pointer" }}
             >
-              <div className={styles.productHeading}>
-                <div className={`${styles.circle}`}>
-                  <div
-                    className={`${
-                      p.id === selectedProduct.id ? styles.optionSelected : ""
-                    }`}
-                  ></div>
+              <div className={styles.optionBody}>
+                <div className={styles.productHeading}>
+                  <div className={`${styles.circle}`}>
+                    <div
+                      className={`${
+                        p.id === selectedProduct.id ? styles.optionSelected : ""
+                      }`}
+                    ></div>
+                  </div>
+                  <div>
+                    <h5>{p.name}</h5>
+                    <p
+                      style={{
+                        display: p.minPledge === 0 ? "none" : "",
+                      }}
+                    >
+                      Pledge ${p.minPledge} or more
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h5>{p.name}</h5>
-                  <p
-                    style={{
-                      display: p.minPledge === 0 ? "none" : "",
-                    }}
-                  >
-                    Pledge ${p.minPledge} or more
-                  </p>
-                </div>
+                <p className={styles.description}>{p.description}</p>
+                <h3
+                  style={{
+                    display: p.minPledge === 0 ? "none" : "",
+                  }}
+                >
+                  {p.daysLeft} <span>left</span>
+                </h3>
               </div>
-              <p className={styles.description}>{p.description}</p>
-              <h3
+
+              <footer
+                className={styles.optionFooter}
                 style={{
-                  display: p.minPledge === 0 ? "none" : "",
+                  display: p.id === selectedProduct.id ? "flex" : "none",
                 }}
               >
-                {p.daysLeft} <span>left</span>
-              </h3>
+                <p>Enter your pledge</p>
+                <div className={styles.footerMoney}>
+                  <div className={styles.pledgeField}>
+                    <div className={styles.currencySymbol}>$</div>
+                    <input
+                      type="text"
+                      value={`${pledgeAmount}`}
+                      onChange={(e) => {
+                        if (!Number.isNaN(Number(e.target.value))) {
+                          setPledgeAmount(e.target.value)
+                        }
+                      }}
+                    />
+                  </div>
+
+                  <Button title="Continue" />
+                </div>
+              </footer>
             </div>
           ))}
         </div>
