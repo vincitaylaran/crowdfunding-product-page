@@ -6,6 +6,12 @@
   }
 }
 
+@mixin desktop {
+  @media (min-width: $desktop) {
+    @content;
+  }
+}
+
 @mixin container {
   display: grid;
   justify-content: center;

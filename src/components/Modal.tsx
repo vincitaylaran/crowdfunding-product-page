@@ -68,26 +68,44 @@ const Modal = ({ products, onClose, visible = false }: Props) => {
             >
               <div className={styles.optionBody}>
                 <div className={styles.productHeading}>
-                  <div className={`${styles.circle}`}>
-                    <div
-                      className={`${
-                        p.id === selectedProduct.id ? styles.optionSelected : ""
-                      }`}
-                    ></div>
+                  <div className={styles.info}>
+                    <div className={`${styles.circle}`}>
+                      <div
+                        className={`${
+                          p.id === selectedProduct.id
+                            ? styles.optionSelected
+                            : ""
+                        }`}
+                      ></div>
+                    </div>
+
+                    <div className={styles.moreInfo}>
+                      <h5>{p.name}</h5>
+                      <p
+                        style={{
+                          display: p.minPledge === 0 ? "none" : "",
+                        }}
+                      >
+                        Pledge ${p.minPledge} or more
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <h5>{p.name}</h5>
-                    <p
-                      style={{
-                        display: p.minPledge === 0 ? "none" : "",
-                      }}
-                    >
-                      Pledge ${p.minPledge} or more
-                    </p>
-                  </div>
+
+                  <h3
+                    id={styles.daysLeftDesktop}
+                    className={styles.daysLeft}
+                    style={{
+                      display: p.minPledge === 0 ? "none" : "",
+                    }}
+                  >
+                    {p.daysLeft} <span>left</span>
+                  </h3>
                 </div>
+
                 <p className={styles.description}>{p.description}</p>
                 <h3
+                  id={styles.daysLeftMobile}
+                  className={styles.daysLeft}
                   style={{
                     display: p.minPledge === 0 ? "none" : "",
                   }}
