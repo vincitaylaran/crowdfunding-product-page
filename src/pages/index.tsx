@@ -116,6 +116,7 @@ const IndexPage = () => {
   return (
     <main>
       <title>crowdfund</title>
+
       <Modal
         visible={isModalOpen}
         onClose={onBackThisProject}
