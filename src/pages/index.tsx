@@ -95,6 +95,7 @@ const IndexPage = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
   const [currentDonations, setCurrentDonations] = useState<number>(89914)
+  const [totalBackers, setTotalBackers] = useState<number>(5007)
   const [products, setProducts] = useState<Product[]>([
     {
       id: uuidv4(),
@@ -126,12 +127,18 @@ const IndexPage = () => {
     setIsModalOpen(!isModalOpen)
   }
 
+  const onPledge = (amount: number) => {
+    setCurrentDonations(currentDonations + amount)
+    setTotalBackers(totalBackers + 1)
+  }
+
   return (
     <main>
       <title>crowdfund</title>
 
       {/** The Modal component should be hidden if isModalOpen state is false. Should be visible when isModalOpen is true after onBackThisProject is called. */}
       <Modal
+        onContinue={onPledge}
         visible={isModalOpen}
         onClose={onBackThisProject}
         products={[
@@ -181,13 +188,13 @@ const IndexPage = () => {
         <Card id={cardStyles.productProgress}>
           <div className={cardStyles.progress}>
             <div className={cardStyles.cell}>
-              <h2>$89,914</h2>
+              <h2>${currentDonations.toLocaleString()}</h2>
               <p>of $100,000 backed</p>
               <hr /> {/** This is hidden on mobile viewport */}
             </div>
 
             <div className={cardStyles.cell}>
-              <h2>5,007</h2>
+              <h2>{totalBackers.toLocaleString()}</h2>
               <p>total backers</p>
               <hr /> {/** This is hidden on mobile viewport */}
             </div>

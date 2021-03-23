@@ -9,7 +9,7 @@ interface IOptionsWindow {
   visible?: boolean
   products: IProduct[]
   onClose?: () => any
-  onContinue?: ({}) => void
+  onContinue: (amount: number) => void
 }
 
 const CloseModal = ({ ...props }) => (
@@ -135,7 +135,7 @@ const OptionsWindow = ({ products, onClose, onContinue }: IOptionsWindow) => {
                 <Button
                   title="Continue"
                   onClick={() => {
-                    onContinue({ ...selectedProduct, pledgeAmount })
+                    onContinue(Number(pledgeAmount))
                   }}
                 />
               </div>
@@ -165,23 +165,37 @@ const ThankYouWindow = ({ ...props }) => (
   </div>
 )
 
-const Modal = ({ products, onClose, visible = false }: IOptionsWindow) => {
-  const [option, setOption] = useState<{}>()
+const Modal = ({
+  products,
+  onClose,
+  onContinue,
+  visible = false,
+}: IOptionsWindow) => {
+  const [showThankYou, setShowThankYou] = useState<boolean>(false)
 
   return (
     <div
       className={`${visible ? styles.modal : styles.hidden}`}
       onClick={onClose}
     >
-      {option ? (
-        <ThankYouWindow onClose={onClose} />
+      {showThankYou ? (
+        <ThankYouWindow
+          onClose={() => {
+            if (onClose) {
+              onClose()
+            }
+            setShowThankYou(false)
+          }}
+        />
       ) : (
         <OptionsWindow
           products={products}
           onClose={onClose}
-          onContinue={(selectedOption: {}) => {
-            console.log(selectedOption)
-            setOption(selectedOption)
+          onContinue={(amount: number) => {
+            if (amount > 0) {
+              onContinue(amount)
+              setShowThankYou(true)
+            }
           }}
         />
       )}
