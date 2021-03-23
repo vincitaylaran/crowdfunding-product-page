@@ -2,7 +2,6 @@ import React, { useState } from "react"
 
 import { v4 as uuidv4 } from "uuid"
 
-import * as indexStyles from "../components/index.module.scss"
 import * as cardStyles from "../components/card.module.scss"
 import "../styles/globals.scss"
 
@@ -107,7 +106,7 @@ const IndexPage = () => {
       daysLeft: 0,
     },
   ])
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(true) // TODO: change back to false when finished.
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
   const onBackThisProject = () => {
     setIsModalOpen(!isModalOpen)
@@ -209,6 +208,9 @@ const IndexPage = () => {
                   <Button
                     disabled={p.daysLeft === 0}
                     title={p.daysLeft === 0 ? "Out of Stock" : "Select Reward"}
+                    onClick={() => {
+                      setIsModalOpen(true)
+                    }}
                   />
                 </div>
               </Card>

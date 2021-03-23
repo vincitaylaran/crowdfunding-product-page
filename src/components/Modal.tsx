@@ -9,8 +9,8 @@ import CheckIcon from "../images/icon-check.svg"
 interface IOptionsWindow {
   visible?: boolean
   products: IProduct[]
-  onClose?: () => void
-  onContinue?: () => void
+  onClose?: () => any
+  onContinue?: ({}) => void
 }
 
 const CloseModal = ({ ...props }) => (
@@ -133,7 +133,12 @@ const OptionsWindow = ({ products, onClose, onContinue }: IOptionsWindow) => {
                   />
                 </div>
 
-                <Button title="Continue" onClick={onContinue} />
+                <Button
+                  title="Continue"
+                  onClick={() => {
+                    onContinue({ ...selectedProduct, pledgeAmount })
+                  }}
+                />
               </div>
             </footer>
           </div>
@@ -162,24 +167,25 @@ const ThankYouWindow = ({ ...props }) => (
 )
 
 const Modal = ({ products, onClose, visible = false }: IOptionsWindow) => {
-  const onContinue = () => {
-    setCurrentWindow(<ThankYouWindow onClose={onClose} />)
-  }
-
-  const [currentWindow, setCurrentWindow] = useState<ReactNode>(
-    <OptionsWindow
-      products={products}
-      onClose={onClose}
-      onContinue={onContinue}
-    />
-  )
+  const [option, setOption] = useState<{}>()
 
   return (
     <div
       className={`${visible ? styles.modal : styles.hidden}`}
       onClick={onClose}
     >
-      {currentWindow}
+      {option ? (
+        <ThankYouWindow onClose={onClose} />
+      ) : (
+        <OptionsWindow
+          products={products}
+          onClose={onClose}
+          onContinue={(selectedOption: {}) => {
+            console.log(selectedOption)
+            setOption(selectedOption)
+          }}
+        />
+      )}
     </div>
   )
 }
