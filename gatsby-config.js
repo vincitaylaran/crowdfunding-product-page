@@ -1,5 +1,5 @@
 const myCustomQueries = {
-  xs: `(max-width: 425px)`,
+  xs: `(max-width: 480px)`,
 }
 
 module.exports = {

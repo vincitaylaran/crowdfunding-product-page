@@ -27,6 +27,7 @@ export interface Product {
 }
 
 const Bookmark = () => {
+  // See gatsby-config.js and go to line 2 to adjust the breakpoint for mobile devices.
   const breakpoint = useBreakpoint()
   const [isBookmarked, setIsBookmarked] = useState<boolean>(false)
 
