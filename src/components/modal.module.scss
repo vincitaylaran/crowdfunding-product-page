@@ -21,14 +21,18 @@
   left: 0;
   overflow: auto; /* Enable scroll if needed */
 
-  .window {
+  .optionsWindow {
     background: white;
     @include card;
     justify-content: flex-start;
     align-items: flex-start;
     border-radius: 8px;
     position: relative;
-    top: 80%;
+    top: 30%;
+
+    @include mobile {
+      top: 50%;
+    }
 
     .question {
       margin-bottom: 24px;
@@ -60,6 +64,10 @@
       .option {
         border: 1px solid rgba(0, 0, 0, 0.15);
         border-radius: 8px;
+
+        &:hover {
+          color: $moderate-cyan;
+        }
 
         .optionBody {
           border-bottom: none;
@@ -207,6 +215,28 @@
           border-radius: inherit;
         }
       }
+    }
+  }
+
+  .thankYouWindow {
+    @include card;
+
+    @include desktop {
+      width: 540px;
+    }
+
+    svg,
+    h3 {
+      margin-bottom: 24px;
+    }
+
+    p {
+      margin-bottom: 31.5px;
+      text-align: center;
+    }
+
+    button {
+      width: 107px;
     }
   }
 }

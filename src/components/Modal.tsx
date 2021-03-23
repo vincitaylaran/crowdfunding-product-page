@@ -1,14 +1,16 @@
-import React, { useState } from "react"
+import React, { useState, ReactNode } from "react"
 import * as styles from "./modal.module.scss"
 import { Product as IProduct } from "../pages/index"
 import CloseModalIcon from "../images/icon-close-modal.svg"
 import Card from "./Card"
 import Button from "./Button"
+import CheckIcon from "../images/icon-check.svg"
 
-interface Props {
-  visible: boolean
+interface IOptionsWindow {
+  visible?: boolean
   products: IProduct[]
-  onClose?: () => any
+  onClose?: () => void
+  onContinue?: () => void
 }
 
 const CloseModal = ({ ...props }) => (
@@ -17,7 +19,7 @@ const CloseModal = ({ ...props }) => (
   </div>
 )
 
-const Modal = ({ products, onClose, visible = false }: Props) => {
+const OptionsWindow = ({ products, onClose, onContinue }: IOptionsWindow) => {
   const [selectedProduct, setSelectedProduct] = useState<{
     id: string
     name: string
@@ -29,82 +31,66 @@ const Modal = ({ products, onClose, visible = false }: Props) => {
 
   return (
     <div
-      className={`${visible ? styles.modal : styles.hidden}`}
-      onClick={onClose}
+      className={styles.optionsWindow}
+      onClick={(e) => {
+        e.stopPropagation() // Prevents the modal from closing when clicking on anything within the window.
+      }}
     >
-      <div
-        className={styles.window}
-        onClick={(e) => {
-          e.stopPropagation() // Prevents the modal from closing when clicking on anything within the window.
-        }}
-      >
-        <div className={styles.heading}>
-          <h4>Back this project</h4>
-          <CloseModal onClick={onClose} />
-        </div>
+      <div className={styles.heading}>
+        <h4>Back this project</h4>
+        <CloseModal onClick={onClose} />
+      </div>
 
-        <p className={styles.question}>
-          Want to support us in bringing Mastercraft Bamboo Monitor Riser out in
-          the world?
-        </p>
+      <p className={styles.question}>
+        Want to support us in bringing Mastercraft Bamboo Monitor Riser out in
+        the world?
+      </p>
 
-        <div className={styles.rewards}>
-          {products.map((p, i) => (
-            <div
-              className={`${styles.option} ${
-                p.daysLeft === 0 ? styles.disabled : ""
-              } ${p.id === selectedProduct.id ? styles.selected : ""}`}
-              key={`modal-${p.name}-${i}`}
-              onClick={() => {
-                if ((p.daysLeft && p.daysLeft > 0) || p.noReward) {
-                  setSelectedProduct({
-                    id: p.id,
-                    name: p.name,
-                  })
-                  setPledgeAmount(p.minPledge.toString())
-                }
-              }}
-              style={{ cursor: p.daysLeft === 0 ? "default" : "pointer" }}
-            >
-              <div className={styles.optionBody}>
-                <div className={styles.productHeading}>
-                  <div className={styles.info}>
-                    <div className={`${styles.circle}`}>
-                      <div
-                        className={`${
-                          p.id === selectedProduct.id
-                            ? styles.optionSelected
-                            : ""
-                        }`}
-                      ></div>
-                    </div>
-
-                    <div className={styles.moreInfo}>
-                      <h5>{p.name}</h5>
-                      <p
-                        style={{
-                          display: p.minPledge === 0 ? "none" : "",
-                        }}
-                      >
-                        Pledge ${p.minPledge} or more
-                      </p>
-                    </div>
+      <div className={styles.rewards}>
+        {products.map((p: any, i: number) => (
+          <div
+            className={`${styles.option} ${
+              p.daysLeft === 0 ? styles.disabled : ""
+            } ${p.id === selectedProduct.id ? styles.selected : ""}`}
+            key={`modal-${p.name}-${i}`}
+            onClick={() => {
+              if ((p.daysLeft && p.daysLeft > 0) || p.noReward) {
+                setSelectedProduct({
+                  id: p.id,
+                  name: p.name,
+                })
+                setPledgeAmount(p.minPledge.toString())
+              }
+            }}
+            style={{ cursor: p.daysLeft === 0 ? "default" : "pointer" }}
+          >
+            <div className={styles.optionBody}>
+              <div className={styles.productHeading}>
+                <div className={styles.info}>
+                  <div className={`${styles.circle}`}>
+                    <div
+                      className={`${
+                        p.id === selectedProduct.id ? styles.optionSelected : ""
+                      }`}
+                    ></div>
                   </div>
 
-                  <h3
-                    id={styles.daysLeftDesktop}
-                    className={styles.daysLeft}
-                    style={{
-                      display: p.minPledge === 0 ? "none" : "",
-                    }}
-                  >
-                    {p.daysLeft} <span>left</span>
-                  </h3>
+                  <div className={styles.moreInfo}>
+                    <h5>{p.name}</h5>
+                    <p
+                      style={{
+                        display: p.minPledge === 0 ? "none" : "",
+                        color: p.id === selectedProduct.id ? "#3CB3AB" : "",
+                        fontWeight: p.id === selectedProduct.id ? 700 : 300,
+                      }}
+                    >
+                      Pledge ${p.minPledge} or more
+                    </p>
+                  </div>
                 </div>
 
-                <p className={styles.description}>{p.description}</p>
                 <h3
-                  id={styles.daysLeftMobile}
+                  id={styles.daysLeftDesktop}
                   className={styles.daysLeft}
                   style={{
                     display: p.minPledge === 0 ? "none" : "",
@@ -114,34 +100,86 @@ const Modal = ({ products, onClose, visible = false }: Props) => {
                 </h3>
               </div>
 
-              <footer
-                className={styles.optionFooter}
+              <p className={styles.description}>{p.description}</p>
+              <h3
+                id={styles.daysLeftMobile}
+                className={styles.daysLeft}
                 style={{
-                  display: p.id === selectedProduct.id ? "flex" : "none",
+                  display: p.minPledge === 0 ? "none" : "",
                 }}
               >
-                <p>Enter your pledge</p>
-                <div className={styles.footerMoney}>
-                  <div className={styles.pledgeField}>
-                    <div className={styles.currencySymbol}>$</div>
-                    <input
-                      type="text"
-                      value={`${pledgeAmount}`}
-                      onChange={(e) => {
-                        if (!Number.isNaN(Number(e.target.value))) {
-                          setPledgeAmount(e.target.value)
-                        }
-                      }}
-                    />
-                  </div>
-
-                  <Button title="Continue" />
-                </div>
-              </footer>
+                {p.daysLeft} <span>left</span>
+              </h3>
             </div>
-          ))}
-        </div>
+
+            <footer
+              className={styles.optionFooter}
+              style={{
+                display: p.id === selectedProduct.id ? "flex" : "none",
+              }}
+            >
+              <p>Enter your pledge</p>
+              <div className={styles.footerMoney}>
+                <div className={styles.pledgeField}>
+                  <div className={styles.currencySymbol}>$</div>
+                  <input
+                    type="text"
+                    value={`${pledgeAmount}`}
+                    onChange={(e) => {
+                      if (!Number.isNaN(Number(e.target.value))) {
+                        setPledgeAmount(e.target.value)
+                      }
+                    }}
+                  />
+                </div>
+
+                <Button title="Continue" onClick={onContinue} />
+              </div>
+            </footer>
+          </div>
+        ))}
       </div>
+    </div>
+  )
+}
+
+const ThankYouWindow = ({ ...props }) => (
+  <div
+    className={styles.thankYouWindow}
+    onClick={(e) => {
+      e.stopPropagation() // Prevents the window from closing when clicked.
+    }}
+  >
+    <CheckIcon />
+    <h3>Thanks for your support!</h3>
+    <p>
+      Your pledge brings us one step closer to sharing Mastercraft Bamboo
+      Monitor Riser worldwide. You will get an email once our campaign is
+      completed.
+    </p>
+    <Button title="Got it!" onClick={props.onClose} />
+  </div>
+)
+
+const Modal = ({ products, onClose, visible = false }: IOptionsWindow) => {
+  const onContinue = () => {
+    setCurrentWindow(<ThankYouWindow onClose={onClose} />)
+  }
+
+  const [currentWindow, setCurrentWindow] = useState<ReactNode>(
+    <OptionsWindow
+      products={products}
+      onClose={onClose}
+      onContinue={onContinue}
+    />
+  )
+
+  return (
+    <div
+      className={`${visible ? styles.modal : styles.hidden}`}
+      onClick={onClose}
+    >
+      {currentWindow}
     </div>
   )
 }

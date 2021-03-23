@@ -173,6 +173,7 @@
 #productAbout {
   @include container;
   justify-content: flex-start;
+  margin-bottom: 120px;
 
   .rewards {
     display: grid;
