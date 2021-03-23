@@ -1,8 +1,7 @@
-import React, { useState, ReactNode } from "react"
+import React, { useState } from "react"
 import * as styles from "./modal.module.scss"
 import { Product as IProduct } from "../pages/index"
 import CloseModalIcon from "../images/icon-close-modal.svg"
-import Card from "./Card"
 import Button from "./Button"
 import CheckIcon from "../images/icon-check.svg"
 

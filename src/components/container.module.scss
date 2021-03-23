@@ -4,6 +4,7 @@
 .container {
   @include container;
 
+  z-index: -2;
   position: absolute;
   top: 34%;
   width: 100%;

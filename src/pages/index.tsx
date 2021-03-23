@@ -10,7 +10,7 @@ import BookmarkIcon from "../images/icon-bookmark.svg"
 
 import { useBreakpoint } from "gatsby-plugin-breakpoints"
 
-import Nav from "../components/Nav"
+import Nav, { Menu } from "../components/Nav"
 import Hero from "../components/Hero"
 import Container from "../components/Container"
 import Card from "../components/Card"
@@ -79,6 +79,21 @@ const ProgressBar = ({ ...props }) => {
 
 const IndexPage = () => {
   const donationGoal = 100000
+
+  // Used for the hamburger menu if user is viewing app from their mobile. If true, hamburger icon turns to a close icon,
+  //  an overlay with linear gradient background renders, and a window with navigation options are renders.
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
+
+  // Used for the modal. If true, the modal is rendered.
+  //
+  // This is can be set to false if the user clicks on the clse icon
+  // at top right corner of the modal window or if the user clicks on the shaded area that the window is contained in. It can
+  // also be set to false when the user clicks on the "Got it!" button after pledging an amount.
+  //
+  // This can be set to true if the user clicks on the "Back this project" button or any of the "Select Reward" buttons in the
+  // about section.
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+
   const [currentDonations, setCurrentDonations] = useState<number>(89914)
   const [products, setProducts] = useState<Product[]>([
     {
@@ -106,7 +121,6 @@ const IndexPage = () => {
       daysLeft: 0,
     },
   ])
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
   const onBackThisProject = () => {
     setIsModalOpen(!isModalOpen)
@@ -116,6 +130,7 @@ const IndexPage = () => {
     <main>
       <title>crowdfund</title>
 
+      {/** The Modal component should be hidden if isModalOpen state is false. Should be visible when isModalOpen is true after onBackThisProject is called. */}
       <Modal
         visible={isModalOpen}
         onClose={onBackThisProject}
@@ -131,9 +146,20 @@ const IndexPage = () => {
           ...products,
         ]}
       />
-      {/** Should be hidden if isModalOpen state is false. Should be visible when isModalOpen is true after onBackThisProject is called. */}
-      <Nav />
+
+      <Nav
+        isMenuOpen={isMenuOpen}
+        onHamburger={() => {
+          setIsMenuOpen(!isMenuOpen)
+        }}
+      />
+
+      {/* Should be visible when isMenuOpen is true. The isMenuOpen state is set to true when the hamburger icon
+      is clicked. The hamburger only appears when viewed on a mobile device. */}
+      <Menu visible={isMenuOpen} />
+
       <Hero />
+
       <Container>
         <Card id={cardStyles.productName}>
           <div className={cardStyles.logo}>
