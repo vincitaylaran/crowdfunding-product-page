@@ -96,7 +96,7 @@ Use this section to outline areas that you want to continue focusing on in futur
 
 ### Useful resources
 
-- [Gatsby docs](https://www.gatsbyjs.com/docs/) - For obvious reasons, the docs helped me understand plugins, themes, project structure, and CSS Modules. I still need to read further so I can fully graspy the potential of plugins and themes.
+- [Gatsby docs](https://www.gatsbyjs.com/docs/) - For obvious reasons, the docs helped me understand plugins, themes, project structure, and CSS Modules. I still need to read further so I can fully grasp the potential of plugins and themes.
 - [What is Gatsby and Why Use It](https://www.youtube.com/watch?v=GuvAMcsoreI&list=LL&index=13) - This is an amazing video explaining the practical benefits of using Gatsby. It goes into detail about what a static site generator is, how Gatsby fetches data via GraphQL, and why you should use Gatsby.
 
 ## Author
