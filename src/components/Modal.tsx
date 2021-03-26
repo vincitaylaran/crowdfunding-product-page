@@ -36,7 +36,7 @@ const OptionsWindow = ({ products, onClose, onContinue }: IOptionsWindow) => {
       }}
     >
       <div className={styles.heading}>
-        <h4>Back this project</h4>
+        <h3>Back this project</h3>
         <CloseModal onClick={onClose} />
       </div>
 

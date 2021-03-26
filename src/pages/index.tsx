@@ -210,7 +210,7 @@ const IndexPage = () => {
         </Card>
 
         <Card id={cardStyles.productAbout}>
-          <h4>About this project</h4>
+          <h3>About this project</h3>
           <p>
             The Mastercraft Bamboo Monitor Riser is a sturdy and stylish
             platform that elevates your screen to a more comfortable viewing
@@ -227,7 +227,7 @@ const IndexPage = () => {
             {products.map((p, i) => (
               <Card key={`${p.name}-${i}`} disabled={p.daysLeft === 0}>
                 <div className={cardStyles.headings}>
-                  <h5>{p.name}</h5>
+                  <h3>{p.name}</h3>
                   <p className={cardStyles.subtext}>
                     Pledge ${p.minPledge} or more
                   </p>
