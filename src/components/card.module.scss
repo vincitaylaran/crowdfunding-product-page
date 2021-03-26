@@ -19,7 +19,7 @@
     bottom: 28%;
     @include mobile {
       position: relative;
-      bottom: 13%;
+      bottom: 7%;
     }
   }
 
@@ -132,6 +132,10 @@
       display: none;
     }
 
+    h2 {
+      font-size: 2rem;
+    }
+
     @include mobile {
       grid-auto-flow: row;
       gap: 24px;
@@ -160,7 +164,6 @@
 
       h2 {
         margin-bottom: 9px;
-        font-size: 2rem;
       }
 
       p {
