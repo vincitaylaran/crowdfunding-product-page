@@ -176,7 +176,7 @@ const IndexPage = () => {
 
           <h3 className={cardStyles.header}>Mastercaft Bamboo Monitor Riser</h3>
           <p className={cardStyles.description}>
-            A beautifully handcrafted monitor stand to reduce neck and eye
+            A beautiful & handcrafted monitor stand to reduce neck and eye
             strain.
           </p>
 

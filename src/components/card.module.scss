@@ -172,6 +172,7 @@
 
 #productAbout {
   @include container;
+  padding: 48px;
   justify-content: flex-start;
   margin-bottom: 120px;
 
@@ -185,14 +186,17 @@
       border: 1px solid rgba(0, 0, 0, 0.15);
       border-radius: 8px;
       width: 100%;
-      padding-top: 24px;
-      padding-bottom: 24px;
+      padding: 38px 32px;
 
       .headings {
         display: flex;
         align-items: center;
         width: 100%;
         justify-content: space-between;
+      }
+
+      .subtext {
+        color: $moderate-cyan;
       }
 
       @include mobile {
@@ -202,10 +206,6 @@
 
           h5 {
             margin-bottom: 5px;
-          }
-
-          .subtext {
-            color: $moderate-cyan;
           }
         }
       }
@@ -238,6 +238,7 @@
         button {
           width: 157px;
           font-size: 0.875rem;
+          height: 48px;
         }
       }
     }
